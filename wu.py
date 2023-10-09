@@ -2,6 +2,7 @@
 def snake(a, b, m, n, k, y) -> int:
     x = y - k
     while x < m and y < n and a[x] == b[y]:
+        # この時の文字列を記録しておくとLCSの復元に使える
         x += 1
         y += 1
     return y
