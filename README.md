@@ -5,6 +5,7 @@
 TODO
 - [x] 編集距離
 - [x] wuの差分検出アルゴリズム
+- [ ] Pythonで動かして学ぶ 自然言語処理入門
 - 転置index
 - ベクトル化
 - テキストマイニング?
@@ -90,3 +91,38 @@ k+1とk-1の最遠点を調べて、そこからkに近づけて最遠点を調�
 - Edit Distance
   - または編集距離とか、レーベンシュタイン距離とか
   - SESの挿入と削除の回数の合計
+
+# Pythonで動かして学ぶ 自然言語処理入門
+
+買ってたのを思い出したので、引っ張り出してきた  
+wikiのデータであれこれやっていく感じのようだ。データのparseには`beautifulsoup`を使っている。だいぶ楽に引っこ抜けるな
+
+`str.maketrans`関数は使ったことなかった。変換表を作って、strのtranslate関数に投げ込める
+
+## unicodeの正規化
+
+自然言語処理を行う際の前処理の一つに、Unicodeの正規化がある  
+具体的には半角全角をそろえたり、①と1のように等価な文字をまとめてくれる
+
+正規化の方法は4種類ある
+- NFD
+  - Normalization Form Canonical Decomposition
+- NFC
+  - Normalization Form Canonical Composition
+- NFKD
+  - Normalization Form Compatibility Decomposition
+- NFKC
+  - Normalization Form Compatibility Composition
+
+Canonicalは正規の、という意味  
+前者二つが同一としてみなす条件が厳しく(正準等価性)、後者二つが緩い  (互換等価性)
+NFDの後に再度合成するのがNFC、NFKDの後再度合成するのがNFKC  
+NFKCがよくつかわれているみたい。NFだと①と1を区別するが、NFKだと区別しない
+
+正規化がそもそも文字の合成と分解、という概念で行われるらしい  
+文字の合成は規定文字と結合文字の組み合わせによる結合文字列を単一の合成済み文字にする手続き。か゛をがにするって感じかな
+
+合成と分解は`等価性`という概念に基づく。この等価性が先述の通り2種類ある  
+Canonicalは機能的に等しく視覚的にも識別不可能であるべき文字を識別する  
+Compatibilityは視覚的に異なり、意味的にも異なるかもしれないものを識別する  
+後者が緩い
